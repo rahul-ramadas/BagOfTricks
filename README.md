@@ -1,4 +1,5 @@
-RunMultipleCommands
+BagOfTricks
 ===================
 
-A Sublime Text 3 command plugin to repeat a single command multiple times.
+A collection of Sublime Text 3 commands that I find useful enough to maintain, but not useful enough to publish as individual plugins.
+
