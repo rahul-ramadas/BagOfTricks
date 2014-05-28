@@ -67,4 +67,6 @@ class ListUnsyncedPackagesCommand(sublime_plugin.TextCommand):
         unsynced_packages.remove('package control')
 
         unsynced_packages = [p for p in installed_packages if p.lower() in unsynced_packages]
+        if not unsynced_packages:
+            unsynced_packages = ['None']
         self.view.window().show_quick_panel(unsynced_packages, None)
