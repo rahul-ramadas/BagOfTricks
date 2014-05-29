@@ -4,7 +4,7 @@
         "command": "reverse_words"
     },
     {
-        "caption": "List Unsynced Packages",
-        "command": "list_unsynced_packages"
+        "caption": "Find Unsynced Packages",
+        "command": "find_unsynced_packages"
     }
 ]

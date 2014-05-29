@@ -4,7 +4,7 @@ import os
 import json
 
 
-class ListUnsyncedPackagesCommand(sublime_plugin.TextCommand):
+class FindUnsyncedPackagesCommand(sublime_plugin.TextCommand):
 
     def list_default_packages(self):
         """
