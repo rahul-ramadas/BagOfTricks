@@ -27,7 +27,7 @@ class InsertMarkdownLinkCommand(sublime_plugin.TextCommand):
             self.view.run_command("insert_snippet", {"contents": markdown_link})
 
         clipboard_text = sublime.get_clipboard(2000)
-        if re.match("http://", clipboard_text, re.IGNORECASE) is not None:
+        if re.match("https?://", clipboard_text, re.IGNORECASE) is not None:
             initial_text = clipboard_text
         else:
             initial_text = ""
