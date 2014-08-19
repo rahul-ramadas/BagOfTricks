@@ -1,0 +1,8 @@
+{
+    //
+    // These packages will be ignored when looking for packages that are not managed by package
+    // control. If there is a package that you are syncing by some other means, you can add it to
+    // the list here to prevent it from showing up in the "Find Unsynced Packages" list.
+    //
+    "ignore_unsynced_packages": []
+}

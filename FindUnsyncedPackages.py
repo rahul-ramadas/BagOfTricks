@@ -57,14 +57,24 @@ class FindUnsyncedPackagesCommand(sublime_plugin.TextCommand):
 
         return package_control_settings['installed_packages']
 
+    def remove_user_ignored_packages(self, packages):
+
+        # Remove Package Control from the list, since we are not interested in that.
+        packages.discard("package control")
+
+        prefs = sublime.load_settings('BagOfTricks.sublime-settings')
+        remove_packages = prefs.get('ignore_unsynced_packages', [])
+        remove_packages = set(p.lower() for p in remove_packages)
+
+        packages.difference_update(remove_packages)
+
     def run(self, edit):
         installed_packages = self.list_packages()
         installed_packages_lower = set(p.lower() for p in installed_packages)
         synced_packages = set(p.lower() for p in self.list_synced_packages())
         unsynced_packages = installed_packages_lower - synced_packages
 
-        # Remove Package Control from the list, since we are not interested in that.
-        unsynced_packages.remove('package control')
+        self.remove_user_ignored_packages(unsynced_packages)
 
         unsynced_packages = [p for p in installed_packages if p.lower() in unsynced_packages]
         if not unsynced_packages:
