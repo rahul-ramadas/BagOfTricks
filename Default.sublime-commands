@@ -4,10 +4,6 @@
         "command": "reverse_words"
     },
     {
-        "caption": "Find Unsynced Packages",
-        "command": "find_unsynced_packages"
-    },
-    {
         "caption": "Insert Markdown Link",
         "command": "insert_markdown_link"
     }
