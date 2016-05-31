@@ -7,6 +7,28 @@ MARKDOWN_LINK_SNIPPET = "[${{1:{}}}](${{2:{}}})"
 
 class InsertMarkdownLinkCommand(sublime_plugin.TextCommand):
 
+    def decode_page(self, page_bytes, potential_encoding=None):
+        if potential_encoding:
+            try:
+                text = page_bytes.decode(potential_encoding)
+                return text
+            except:
+                pass
+
+        encodings_to_try = ["utf-8", "iso-8859-1"]
+
+        for encoding in encodings_to_try:
+            if encoding == potential_encoding:
+                continue
+
+            try:
+                text = page_bytes.decode(encoding)
+                return text
+            except:
+                pass
+
+        raise UnicodeDecodeError
+
     def run(self, edit):
         import re
 
@@ -14,9 +36,7 @@ class InsertMarkdownLinkCommand(sublime_plugin.TextCommand):
             import urllib.request
             with urllib.request.urlopen(link) as page:
                 encoding = page.headers.get_content_charset()
-                if encoding is None:
-                    encoding = "utf-8"
-                text = page.read().decode(encoding)
+                text = self.decode_page(page.read(), encoding)
                 match = re.search("<title>(.+)</title>", text, re.IGNORECASE | re.DOTALL)
                 if match is None:
                     title = link
