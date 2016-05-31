@@ -17,11 +17,11 @@ class InsertMarkdownLinkCommand(sublime_plugin.TextCommand):
                 if encoding is None:
                     encoding = "utf-8"
                 text = page.read().decode(encoding)
-                match = re.search("<title>(.+)</title>", text, re.IGNORECASE)
+                match = re.search("<title>(.+)</title>", text, re.IGNORECASE | re.DOTALL)
                 if match is None:
                     title = link
                 else:
-                    title = match.group(1)
+                    title = match.group(1).strip()
 
             markdown_link = MARKDOWN_LINK_SNIPPET.format(title, link)
             self.view.run_command("insert_snippet", {"contents": markdown_link})
