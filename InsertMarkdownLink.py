@@ -37,7 +37,7 @@ class InsertMarkdownLinkCommand(sublime_plugin.TextCommand):
             with urllib.request.urlopen(link) as page:
                 encoding = page.headers.get_content_charset()
                 text = self.decode_page(page.read(), encoding)
-                match = re.search("<title>(.+)</title>", text, re.IGNORECASE | re.DOTALL)
+                match = re.search("<title>(.+?)</title>", text, re.IGNORECASE | re.DOTALL)
                 if match is None:
                     title = link
                 else:
