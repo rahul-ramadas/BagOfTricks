@@ -34,7 +34,8 @@ class InsertMarkdownLinkCommand(sublime_plugin.TextCommand):
 
         def on_done(link):
             import urllib.request
-            with urllib.request.urlopen(link) as page:
+            request = urllib.request.Request(link, headers={'User-Agent' : 'Google Internal-Only Browser'})
+            with urllib.request.urlopen(request) as page:
                 encoding = page.headers.get_content_charset()
                 text = self.decode_page(page.read(), encoding)
                 match = re.search("<title>(.+?)</title>", text, re.IGNORECASE | re.DOTALL)
